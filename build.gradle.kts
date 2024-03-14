@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     id("gg.essential.multi-version")
     id("gg.essential.defaults")
+    id("maven-publish")
 }
 
 val modGroup: String by project
@@ -30,6 +31,30 @@ loom {
             property("mixin.dumpTargetOnFailure", "true")
             programArgs("--tweakClass", "gg.essential.loader.stage0.EssentialSetupTweaker")
             programArgs("--mixin", "patcher.mixins.json")
+        }
+    }
+}
+
+publishing {
+    publications {
+        create("mavenJava", MavenPublication::class) {
+            from(components["java"])
+
+            groupId = modGroup
+            artifactId = modBaseName
+            version = "1.0"
+
+            repositories {
+                maven {
+                    name = "GitHubPackages"
+                    url = uri("https://maven.pkg.github.com/esteban4567890/Patcher")
+
+                    credentials {
+                        username = System.getenv("GITHUB_ACTOR")
+                        password = System.getenv("GITHUB_TOKEN")
+                    }
+                }
+            }
         }
     }
 }
