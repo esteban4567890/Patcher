@@ -256,24 +256,8 @@ public class EntityCulling {
     }
 
     private void check() {
-        long delay = 0;
-        switch (PatcherConfig.cullingInterval) {
-            case 0: {
-                delay = 50;
-                break;
-            }
-            case 1: {
-                delay = 25;
-                break;
-            }
-            case 2: {
-                delay = 10;
-                break;
-            }
-            default:
-                break;
+        long delay = PatcherConfig.cullingInterval;
 
-        }
         long nanoTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
         for (OcclusionQuery query : queries.values()) {
             if (query.nextQuery != 0) {

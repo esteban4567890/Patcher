@@ -737,10 +737,10 @@ public class PatcherConfig extends Vigilant {
     public static boolean entityCulling = true;
 
     @Property(
-        type = PropertyType.SELECTOR, name = "Entity Culling Interval",
+        type = PropertyType.SLIDER, name = "Entity Culling Interval",
         description = "The amount of time in ms between performing visibility checks for entities.\nShorter periods are more costly toward performance but provide the most accurate information.\nLower values are recommended in competitive environments.",
         category = "Performance", subcategory = "Culling",
-        options = {"50", "25", "10"}
+        min = 1, max = 1000
     )
     public static int cullingInterval = 0;
 
